@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 struct Node {
@@ -29,7 +30,19 @@ void bfs(Node* root) {
 
 void dfs(Node* root) {
     if (!root) return;
-    
+    stack<Node*> s;
+    s.push(root);
+
+    while (!s.empty())
+    {
+        Node* current = s.top();
+        s.pop();
+
+        cout << current->data << " ";
+
+        if (current->right) s.push(current->right);
+        if (current->left) s.push(current->left);
+    }
 }
 
 int main(int argc, char const *argv[])
@@ -47,7 +60,8 @@ int main(int argc, char const *argv[])
     root->left->right = new Node(5);
     root->right->right = new Node(6);
 
-    bfs(root);
+    // bfs(root);
+    dfs(root);
     /* code */
     return 0;
 }
